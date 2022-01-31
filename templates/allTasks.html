@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <title>
+            Tasks Manager
+        </title>
+    </head>
+    <body>
+        <div class="flex items-center justify-center">
+            <div class="m-8">
+                <div class="text-5xl font-black text-center">
+                    Task Manager
+                </div>
+                <br>
+                <br>
+                {% if tasks|length == 0 and completed|length == 0 %}
+                    <div class="flex items-center bg-blue-500 text-white text-sm font-bold px-4 py-3" role="alert">
+                  <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
+                  <p>Theres nothing here.</p>
+                </div>
+                {% endif %}
+                {% if tasks|length > 0 %}
+                <h2 class="text-2xl font-bold">
+                    Pending Tasks
+                </h2>
+                <br>
+                {% for task in tasks%}
+                    <div class="border-slate-400 rounded border border-dashed p-3 flex justify-between items-center mb-1">
+                        {{forloop.counter}}. &nbsp; {{task}} &nbsp; 
+                        <div>
+                            <a title="Mark as done" href="/complete_task/{{forloop.counter}}" class="text-green-400 ml-3">
+                                &#128505;
+                            </a>
+                            <a title="Delete" href="/delete-task/{{forloop.counter}}" class="ml-3">
+                                &#128465;
+                            </a>
+                        </div>
+                    </div>
+                    <br>
+                {% endfor %}
+                {% endif %}
+
+                {% if completed|length > 0 %}
+                <h2 class="text-2xl font-bold">
+                    Completed Tasks
+                </h2>
+                <br>
+                {% for task in completed %}
+                    <div class="border-slate-400 rounded border border-dashed p-3 flex justify-between items-center mb-1">
+                        {{forloop.counter}}. &nbsp; {{task}}
+                    </div>
+                    <br>
+                {% endfor %}
+                {% endif %}
+                <br>
+
+                <a href="/tasks" class="bg-transparent hover:bg-purple-500 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded">
+                    Add Task
+                </a>
+                &nbsp;
+                <a href="/completed_tasks" class="bg-transparent hover:bg-purple-500 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded">
+                    Completed Tasks
+                </a>
+                &nbsp;
+                <a href="/all_tasks" class="bg-transparent hover:bg-purple-500 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded">
+                    All Tasks
+                </a>
+            </div>
+        </div>   
+    </body>
+</html>
